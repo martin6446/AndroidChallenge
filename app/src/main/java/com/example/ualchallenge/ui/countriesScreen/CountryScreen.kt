@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun ListView(modifier: Modifier = Modifier,viewmodel: CountriesViewModel = koinViewModel()) {
+fun CountriesListView(modifier: Modifier = Modifier, viewmodel: CountriesViewModel = koinViewModel()) {
 
     LazyColumn(modifier = modifier.fillMaxSize()) {
         items(viewmodel.countries){ country ->
@@ -38,5 +38,5 @@ fun ListView(modifier: Modifier = Modifier,viewmodel: CountriesViewModel = koinV
 @Preview(showBackground = true)
 @Composable
 private fun ListViewPreview() {
-    ListView()
+    CountriesListView()
 }
