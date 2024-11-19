@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace = "com.example.ualchallenge"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.ualchallenge"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -51,15 +51,28 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+//    KOIN
     implementation(libs.koin.androidx.compose)
+//    KTOR
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.android)
     implementation(libs.ktor.client.loggin)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
+//    ROOM
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.pagin)
+//    PAGINATION
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
+//    GOOGLE MAPS
+    implementation(libs.android.maps.compose)
+    implementation(libs.android.maps.compose.utils)
+    implementation(libs.android.maps.compose.widgets)
+//    NAVIGATION
+    implementation(libs.androidx.navigation.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

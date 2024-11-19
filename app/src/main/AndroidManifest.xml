@@ -15,6 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UaláChallenge"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBa6QDBNzF2-umBLRs4Ievl3uwJP_Zzx_A"
+            />
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -2,11 +2,10 @@ package com.example.ualchallenge.data.remote
 
 import com.example.ualchallenge.data.local.CountryDao
 import com.example.ualchallenge.data.local.CountryEntity
-import com.example.ualchallenge.model.CountryModel
+import com.example.ualchallenge.utils.DataError
 import com.example.ualchallenge.utils.Result.Error
 import com.example.ualchallenge.utils.Result.Success
 import com.example.ualchallenge.utils.toEntity
-import com.example.ualchallenge.utils.toModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -20,16 +19,14 @@ import java.io.FileReader
 class CountriesRepositoryImp(private val service: CountriesService, private val dao: CountryDao) :
     CountriesRepository {
 
-    override suspend fun getCountries(): List<CountryModel> {
-        val localCountries = dao.getCountries()
-
-        if (localCountries.isNotEmpty()) {
-            return localCountries.map { it.toModel() }
-        }
-
-        return withContext(Dispatchers.IO) {
+    override suspend fun fetchCountries() {
+        withContext(Dispatchers.IO) {
             when (val result = service.fetchApiData()) {
-                is Error -> TODO()
+                is Error ->
+                    when (result.error) {
+                        DataError.NetWork.REQUEST_TIMEOUT -> println(result.error)
+                    }
+
                 is Success -> {
                     val remoteCountries = mutableListOf<CountryEntity>()
                     convertResponseToTempFileAndRead(result.data).collect {
@@ -40,10 +37,8 @@ class CountriesRepositoryImp(private val service: CountriesService, private val 
                         }
                     }
 
-                    if(remoteCountries.isNotEmpty())
+                    if (remoteCountries.isNotEmpty())
                         dao.insertAll(remoteCountries)
-
-                    dao.getCountries().map { it.toModel() }
                 }
             }
         }

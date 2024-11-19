@@ -5,6 +5,9 @@ import com.example.ualchallenge.data.local.CountryDataBase
 import com.example.ualchallenge.data.remote.CountriesRepository
 import com.example.ualchallenge.data.remote.CountriesRepositoryImp
 import com.example.ualchallenge.data.remote.CountriesService
+import com.example.ualchallenge.domain.GetCountriesUseCase
+import com.example.ualchallenge.domain.GetFavoriteCountriesUseCase
+import com.example.ualchallenge.domain.SetFavoriteCountryUseCase
 import com.example.ualchallenge.ui.countriesScreen.CountriesViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
@@ -25,8 +28,10 @@ val appModule = module {
     singleOf(::CountriesService)
     singleOf(::CountriesRepositoryImp) bind CountriesRepository::class
     viewModelOf(::CountriesViewModel)
+    singleOf(::GetCountriesUseCase)
+    singleOf(::SetFavoriteCountryUseCase)
+    singleOf(::GetFavoriteCountriesUseCase)
 }
-
 
 val provideRoomDataBaseModule = module {
     single {
